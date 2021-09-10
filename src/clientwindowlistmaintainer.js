@@ -52,7 +52,7 @@ class ClientWindowListMaintainer {
      * @returns 如果没有值为 null 的元素，则返回 -1，
      *     否则返回第一个值为 null 的元素的索引值。
      */
-    getFirstAvailablePlaceIndex() {
+    getFirstAvailablePlaceholderIndex() {
         let windowIndex = -1;
         for (let idx = 0; idx < this.clientWindows.length; idx++) {
             if (this.clientWindows[idx] === null) {
@@ -80,31 +80,31 @@ class ClientWindowListMaintainer {
      *
      * 如果指定的索引对应的元素已经是 null，则抛出 IllegalArgumentException 异常。
      *
-     * @param {*} index
+     * @param {*} placeholderIndex
      */
-    release(index) {
-        if (this.clientWindows[index] === null) {
+    release(placeholderIndex) {
+        if (this.clientWindows[placeholderIndex] === null) {
             throw new IllegalArgumentException(
                 'The element with the specified index value is already null.');
         }
 
-        this.clientWindows[index] = null;
+        this.clientWindows[placeholderIndex] = null;
     }
 
     /**
      * 替换 null 元素为新的 Client window 对象。
      *
      * 如果指定的索引对应的元素不为 null，则抛出 IllegalArgumentException 异常。
-     * @param {*} placeIndex
+     * @param {*} placeholderIndex
      * @param {*} clientWindow
      */
-    replace(placeIndex, clientWindow) {
-        if (this.clientWindows[placeIndex] !== null) {
+    reuse(placeholderIndex, clientWindow) {
+        if (this.clientWindows[placeholderIndex] !== null) {
             throw new IllegalArgumentException(
                 'The element with the specified index value is not null.');
         }
 
-        this.clientWindows[placeIndex] = clientWindow;
+        this.clientWindows[placeholderIndex] = clientWindow;
     }
 }
 
